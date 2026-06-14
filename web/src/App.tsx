@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
+  History as HistoryIcon,
   Image as ImageIcon,
   Mic,
   MicOff,
@@ -38,6 +39,13 @@ type GenerateImageResponse = {
 const WAKE_KEYWORD = '小王启动'
 const SLEEP_KEYWORDS = ['小王休息', '小王暂停', '小王结束', '停止生成']
 const REGENERATE_KEYWORDS = ['重新生成', '再来一张', '重画一张', '换一张']
+const VAGUE_PROMPTS = ['什么', '啥', '东西', '这个', '那个', '一下', '图片', '图像', '画面', '照片']
+
+const DRAW_COMMAND_PATTERNS = [
+  /(?:帮我|给我|请|麻烦|可以|能不能)?(?:画|绘制|生成|创建|设计)(?:一张|一个|一幅|个|幅|张)?(?:关于|有关|成|为)?(.+)/,
+  /(?:帮我|给我|请|麻烦)?(?:做|来|出|弄)(?:一张|张|个|一幅|幅)(?:图片|图|图像|画|画面|插画)?(?:关于|有关|成|为)?(.+)/,
+  /(?:给我|我要|想要|来)(?:一张|张|个|一幅|幅)?(.+?)(?:图片|图像|画|画面|插画)$/
+]
 
 function createId(prefix: string) {
   if (window.crypto?.randomUUID) {
@@ -73,6 +81,31 @@ function cleanPrompt(text: string) {
   return result.length >= 2 ? result : text.trim()
 }
 
+function stripWakeWords(text: string) {
+  return text.replaceAll('小王启动', '').replaceAll('小王 启动', '').trim()
+}
+
+function isSpecificPrompt(prompt: string) {
+  const normalized = normalizeSpeech(prompt)
+  return normalized.length >= 2 && !VAGUE_PROMPTS.includes(normalized)
+}
+
+function extractDrawPrompt(text: string) {
+  const source = stripWakeWords(text)
+
+  for (const pattern of DRAW_COMMAND_PATTERNS) {
+    const match = source.match(pattern)
+    if (!match?.[1]) continue
+
+    const prompt = cleanPrompt(match[1])
+    if (isSpecificPrompt(prompt)) {
+      return prompt
+    }
+  }
+
+  return null
+}
+
 function micStatusText(status: MicStatus, isListening: boolean) {
   if (status === 'unsupported') return '当前浏览器不支持语音识别'
   if (status === 'denied') return '麦克风权限未开启'
@@ -93,11 +126,13 @@ function App() {
     }
   ])
   const [generatedImage, setGeneratedImage] = useState<GeneratedImage | null>(null)
+  const [generatedHistory, setGeneratedHistory] = useState<GeneratedImage[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
   const [lastPrompt, setLastPrompt] = useState('')
   const [progress, setProgress] = useState(0)
   const [showProgress, setShowProgress] = useState(false)
   const finishTimerRef = useRef<number | null>(null)
+  const lastDrawRequestRef = useRef({ prompt: '', at: 0 })
 
   const isAwakeRef = useRef(isAwake)
   const lastPromptRef = useRef(lastPrompt)
@@ -151,6 +186,15 @@ function App() {
         return
       }
 
+      const now = Date.now()
+      if (
+        lastDrawRequestRef.current.prompt === finalPrompt &&
+        now - lastDrawRequestRef.current.at < 4000
+      ) {
+        return
+      }
+      lastDrawRequestRef.current = { prompt: finalPrompt, at: now }
+
       setLastPrompt(finalPrompt)
       pushMessage('user', finalPrompt)
       setIsGenerating(true)
@@ -173,14 +217,17 @@ function App() {
           throw new Error(data.warning || '图片生成失败')
         }
 
-        setGeneratedImage({
+        const nextImage = {
           id: createId('image'),
           model: data.model,
           prompt: data.prompt,
           provider: data.provider,
           url: data.imageUrl,
           warning: data.warning
-        })
+        }
+
+        setGeneratedImage(nextImage)
+        setGeneratedHistory((current) => [nextImage, ...current].slice(0, 12))
 
         const reply = data.warning
           ? '我先给你生成了预览图。'
@@ -202,6 +249,11 @@ function App() {
     [pushMessage]
   )
 
+  const selectHistoryImage = useCallback((image: GeneratedImage) => {
+    setGeneratedImage(image)
+    setLastPrompt(image.prompt)
+  }, [])
+
   const handleFinalTranscript = useCallback(
     (text: string) => {
       const normalized = normalizeSpeech(text)
@@ -213,10 +265,8 @@ function App() {
           speak('我醒啦，说出你想生成的画面。')
         }
 
-        const promptAfterWake = cleanPrompt(
-          text.replaceAll('小王启动', '').replaceAll('小王 启动', '')
-        )
-        if (promptAfterWake && promptAfterWake !== text.trim()) {
+        const promptAfterWake = extractDrawPrompt(text)
+        if (promptAfterWake) {
           void generateImage(promptAfterWake)
         }
         return
@@ -233,15 +283,17 @@ function App() {
         return
       }
 
+      const drawPrompt = extractDrawPrompt(text)
+      if (drawPrompt) {
+        void generateImage(drawPrompt)
+        return
+      }
+
       if (REGENERATE_KEYWORDS.some((keyword) => normalized.includes(normalizeSpeech(keyword)))) {
         if (lastPromptRef.current) {
           void generateImage(lastPromptRef.current)
         }
         return
-      }
-
-      if (text.trim().length >= 3) {
-        void generateImage(text)
       }
     },
     [generateImage, pushMessage]
@@ -359,40 +411,72 @@ function App() {
                 </div>
               </div>
 
-              <div className="image-pane">
-                <div className="pane-heading">
-                  <ImageIcon size={18} />
-                  <span>画框</span>
-                </div>
-                <div className={`image-frame ${showProgress ? 'is-generating' : ''}`}>
-                  {generatedImage ? (
-                    <img
-                      src={generatedImage.url}
-                      alt={`根据语音提示生成的图片：${generatedImage.prompt}`}
-                    />
-                  ) : (
-                    <div className="empty-frame">
-                      <WandSparkles size={42} />
-                    </div>
-                  )}
-                  {showProgress && (
-                    <div className="generating-layer">
-                      <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}>
-                        <div className="progress-label">
-                          <WandSparkles size={16} />
-                          <span>{progress >= 100 ? '完成' : '正在生成画面'}</span>
-                          <span className="progress-pct">{Math.round(progress)}%</span>
-                        </div>
-                        <div className="progress-track">
-                          <div className="progress-fill" style={{ width: `${progress}%` }} />
+              <div className="image-stack">
+                <div className="image-pane">
+                  <div className="pane-heading">
+                    <ImageIcon size={18} />
+                    <span>画框</span>
+                  </div>
+                  <div className={`image-frame ${showProgress ? 'is-generating' : ''}`}>
+                    {generatedImage ? (
+                      <img
+                        src={generatedImage.url}
+                        alt={`根据语音提示生成的图片：${generatedImage.prompt}`}
+                      />
+                    ) : (
+                      <div className="empty-frame">
+                        <WandSparkles size={42} />
+                      </div>
+                    )}
+                    {showProgress && (
+                      <div className="generating-layer">
+                        <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}>
+                          <div className="progress-label">
+                            <WandSparkles size={16} />
+                            <span>{progress >= 100 ? '完成' : '正在生成画面'}</span>
+                            <span className="progress-pct">{Math.round(progress)}%</span>
+                          </div>
+                          <div className="progress-track">
+                            <div className="progress-fill" style={{ width: `${progress}%` }} />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  <div className="image-meta">
+                    <span>{generatedImage?.provider ?? 'voice'}</span>
+                    <span>{generatedImage?.model ?? 'ready'}</span>
+                  </div>
                 </div>
-                <div className="image-meta">
-                  <span>{generatedImage?.provider ?? 'voice'}</span>
-                  <span>{generatedImage?.model ?? 'ready'}</span>
+
+                <div className="history-pane">
+                  <div className="pane-heading">
+                    <HistoryIcon size={18} />
+                    <span>历史生图</span>
+                  </div>
+                  <div className="history-list" aria-label="历史生图列表">
+                    {generatedHistory.length > 0 ? (
+                      generatedHistory.map((image) => (
+                        <button
+                          aria-label={`查看历史生图：${image.prompt}`}
+                          aria-pressed={generatedImage?.id === image.id}
+                          className={`history-item ${generatedImage?.id === image.id ? 'is-active' : ''}`}
+                          key={image.id}
+                          onClick={() => selectHistoryImage(image)}
+                          type="button"
+                        >
+                          <img src={image.url} alt="" loading="lazy" />
+                          <span className="history-prompt">{image.prompt}</span>
+                          <span className="history-provider">{image.provider}</span>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="empty-history">
+                        <WandSparkles size={20} />
+                        <span>暂无历史</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.section>
