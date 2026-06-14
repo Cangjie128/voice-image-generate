@@ -4,7 +4,9 @@
 
 ## 演示视频
 
-[观看 Demo 视频](docs/demo.mp4)
+[在线观看 Demo](https://cangjie128.github.io/voice-image-generate/)
+
+[备用：直接打开视频文件](docs/demo.mp4)
 
 ## 核心体验
 
