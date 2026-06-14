@@ -1,0 +1,75 @@
+<view class="page period-page">
+  <view class="period-hero">
+    <text class="hero-title">身体也需要被认真照顾</text>
+    <text class="hero-subtitle">第一版先做记录和温馨提醒，不做医疗判断。</text>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>记录本次状态</text>
+      <text class="section-note">可随时补充</text>
+    </view>
+    <view class="card form-card">
+      <picker mode="date" value="{{form.startDate}}" bindchange="onStartDateChange">
+        <view class="field-row">
+          <text>开始日期</text>
+          <text>{{form.startDate}}</text>
+        </view>
+      </picker>
+      <picker mode="date" value="{{form.endDate}}" bindchange="onEndDateChange">
+        <view class="field-row">
+          <text>结束日期</text>
+          <text>{{form.endDate}}</text>
+        </view>
+      </picker>
+      <picker mode="selector" range="{{painOptions}}" value="{{painIndex}}" bindchange="onPainChange">
+        <view class="field-row">
+          <text>疼痛程度</text>
+          <text>{{painOptions[painIndex]}}</text>
+        </view>
+      </picker>
+      <picker mode="selector" range="{{flowOptions}}" value="{{flowIndex}}" bindchange="onFlowChange">
+        <view class="field-row">
+          <text>流量</text>
+          <text>{{flowOptions[flowIndex]}}</text>
+        </view>
+      </picker>
+      <picker mode="selector" range="{{moodOptions}}" value="{{moodIndex}}" bindchange="onMoodChange">
+        <view class="field-row">
+          <text>情绪</text>
+          <text>{{moodOptions[moodIndex]}}</text>
+        </view>
+      </picker>
+      <textarea class="textarea note-input" value="{{form.note}}" placeholder="备注，比如肚子不舒服、想早点睡。" bindinput="onNoteInput" />
+      <button class="primary-btn full-btn" bindtap="addRecord">保存记录</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>温柔建议</text>
+    </view>
+    <view class="card advice-card">
+      <text>今天可能会比较累，可以少喝冰的，多休息。如果肚子不舒服，可以准备热水袋。你不是矫情，是身体真的需要被照顾。</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>历史记录</text>
+    </view>
+    <view class="record-list">
+      <block wx:for="{{records}}" wx:key="id">
+        <view class="card record-item">
+          <view>
+            <text class="record-date">{{item.startDate}} 至 {{item.endDate}}</text>
+            <text class="record-meta">疼痛 {{item.painLevel}} · 流量 {{item.flowLevel}} · 情绪 {{item.mood}}</text>
+          </view>
+          <text class="record-note">{{item.note}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="disclaimer">本功能仅用于生活记录和温馨提醒，不作为医疗诊断依据。</view>
+</view>

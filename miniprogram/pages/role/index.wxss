@@ -1,0 +1,70 @@
+.role-page {
+  padding-top: 48rpx;
+}
+
+.role-hero {
+  padding: 36rpx;
+}
+
+.hero-kicker,
+.hero-title,
+.hero-subtitle,
+.role-title,
+.role-desc {
+  display: block;
+}
+
+.hero-kicker {
+  color: #d7556d;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.hero-title {
+  margin-top: 16rpx;
+  color: #332a2a;
+  font-size: 52rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  margin-top: 18rpx;
+  color: #756865;
+  font-size: 28rpx;
+}
+
+.role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+}
+
+.role-card {
+  padding: 30rpx;
+}
+
+.waibao-card {
+  background: linear-gradient(135deg, #fff0f3 0%, #fffaf7 100%);
+}
+
+.boyfriend-card {
+  background: linear-gradient(135deg, #f5fbf8 0%, #fffaf7 100%);
+}
+
+.role-title {
+  color: #332a2a;
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.role-desc {
+  margin-top: 12rpx;
+  color: #756865;
+  font-size: 26rpx;
+}
+
+.role-btn {
+  width: 100%;
+  margin-top: 28rpx;
+}

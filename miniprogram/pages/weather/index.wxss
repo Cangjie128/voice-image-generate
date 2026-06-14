@@ -1,0 +1,167 @@
+.weather-hero {
+  display: flex;
+  justify-content: space-between;
+  min-height: 240rpx;
+  padding: 34rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #eef8f4 0%, #f9fbff 55%, #fff3e7 100%);
+  box-shadow: 0 16rpx 42rpx rgba(84, 111, 103, 0.08);
+}
+
+.city,
+.condition,
+.range,
+.rain-number,
+.rain-label,
+.advice-label,
+.advice-text,
+.metric-value,
+.metric-label,
+.forecast-day,
+.forecast-weather,
+.forecast-temp,
+.ootd-title,
+.ootd-desc {
+  display: block;
+}
+
+.city {
+  color: #527267;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.condition {
+  margin-top: 18rpx;
+  color: #332a2a;
+  font-size: 48rpx;
+  font-weight: 800;
+}
+
+.range {
+  margin-top: 10rpx;
+  color: #6f625f;
+  font-size: 28rpx;
+}
+
+.rain-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  min-width: 150rpx;
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.rain-number {
+  color: #d7556d;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.rain-label {
+  margin-top: 8rpx;
+  color: #8f7d7a;
+  font-size: 22rpx;
+}
+
+.advice-card {
+  padding: 8rpx 24rpx 24rpx;
+}
+
+.advice-item {
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f2e3de;
+}
+
+.advice-label {
+  color: #bd6b5b;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.advice-text {
+  margin-top: 8rpx;
+  color: #4c4240;
+  font-size: 28rpx;
+}
+
+.advice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+  margin-top: 22rpx;
+}
+
+.advice-grid view {
+  min-height: 116rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: #f5fbf8;
+}
+
+.metric-value {
+  color: #527267;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.metric-label {
+  margin-top: 6rpx;
+  color: #8f7d7a;
+  font-size: 24rpx;
+}
+
+.forecast-list {
+  display: flex;
+  gap: 14rpx;
+}
+
+.forecast-item {
+  flex: 1;
+  min-width: 0;
+  padding: 22rpx 12rpx;
+  text-align: center;
+}
+
+.forecast-day {
+  color: #332a2a;
+  font-weight: 800;
+}
+
+.forecast-weather {
+  margin-top: 8rpx;
+  color: #527267;
+  font-size: 26rpx;
+}
+
+.forecast-temp {
+  margin-top: 8rpx;
+  color: #8f7d7a;
+  font-size: 23rpx;
+}
+
+.ootd-card {
+  padding: 26rpx;
+}
+
+.ootd-title {
+  color: #332a2a;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.ootd-desc {
+  margin-top: 14rpx;
+  color: #6c5c58;
+  font-size: 26rpx;
+}
+
+.ootd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 18rpx;
+}

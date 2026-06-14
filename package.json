@@ -1,0 +1,14 @@
+{
+  "name": "waibao-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "歪宝小窝小程序与服务端工作区",
+  "scripts": {
+    "api:install": "cd server && npm install",
+    "api:dev": "cd server && npm run dev",
+    "api:typecheck": "cd server && npm run typecheck",
+    "web:install": "cd web && npm install",
+    "web:dev": "cd web && npm run dev",
+    "web:build": "cd web && npm run build"
+  }
+}

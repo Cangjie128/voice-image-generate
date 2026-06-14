@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/role/index",
+    "pages/today/index",
+    "pages/weather/index",
+    "pages/period/index",
+    "pages/wishes/index",
+    "pages/profile/index",
+    "pages/diary/index",
+    "pages/boyfriend/index",
+    "pages/ootd/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "歪宝小窝",
+    "navigationBarBackgroundColor": "#fff8f6",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff8f6"
+  },
+  "tabBar": {
+    "color": "#827777",
+    "selectedColor": "#e85d75",
+    "backgroundColor": "#fffdfb",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/today/index",
+        "text": "今日"
+      },
+      {
+        "pagePath": "pages/weather/index",
+        "text": "天气"
+      },
+      {
+        "pagePath": "pages/period/index",
+        "text": "例假"
+      },
+      {
+        "pagePath": "pages/wishes/index",
+        "text": "心愿"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

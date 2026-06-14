@@ -1,0 +1,65 @@
+<view class="page boyfriend-page">
+  <view class="boyfriend-hero">
+    <text class="hero-kicker">歪宝今日状态</text>
+    <text class="hero-title">{{snapshot.status}}</text>
+    <text class="hero-subtitle">{{snapshot.advice}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>绑定歪宝</text>
+      <text class="section-note">首次绑定</text>
+    </view>
+    <view class="card bind-card">
+      <input class="input bind-input" value="{{bindCode}}" placeholder="输入歪宝给你的邀请码" bindinput="onBindCodeInput" />
+      <button class="ghost-btn bind-btn" bindtap="submitBindCode">绑定</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>今天可以这样说</text>
+      <button class="text-btn" bindtap="refreshPhrase">换一句</button>
+    </view>
+    <view class="card phrase-card">
+      <text>{{currentPhrase}}</text>
+      <button class="primary-btn full-btn" bindtap="copyPhrase">复制话术</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>重要日子</text>
+      <text class="section-note">别忘记</text>
+    </view>
+    <block wx:for="{{snapshot.importantDates}}" wx:key="id">
+      <view class="card date-item">
+        <text>{{item.title}}</text>
+        <text>{{item.countdownText}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>最近心愿</text>
+      <text class="section-note">可以偷偷安排</text>
+    </view>
+    <block wx:if="{{snapshot.wishes.length}}">
+      <block wx:for="{{snapshot.wishes}}" wx:key="id">
+        <view class="card wish-item">
+          <view>
+            <text class="wish-title">{{item.title}}</text>
+            <text class="wish-desc">{{item.description}}</text>
+          </view>
+          <text class="pill">{{item.progress}}%</text>
+        </view>
+      </block>
+    </block>
+    <view wx:else class="card empty">歪宝暂时没有开放心愿查看。</view>
+  </view>
+
+  <view class="section">
+    <button class="ghost-btn full-btn" bindtap="chooseRoleAgain">重新选择身份</button>
+  </view>
+</view>

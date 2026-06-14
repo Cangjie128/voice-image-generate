@@ -1,0 +1,76 @@
+<view class="page weather-page">
+  <view class="weather-hero">
+    <view>
+      <text class="city">{{weather.city}}</text>
+      <text class="condition">{{weather.weather}}，{{weather.current}}°</text>
+      <text class="range">{{weather.temperatureMin}}° - {{weather.temperatureMax}}°</text>
+    </view>
+    <view class="rain-box">
+      <text class="rain-number">{{weather.rainProbability}}%</text>
+      <text class="rain-label">降雨概率</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>今日提醒</text>
+      <text class="section-note">出门前看一眼</text>
+    </view>
+    <view class="card advice-card">
+      <view class="advice-item">
+        <text class="advice-label">综合</text>
+        <text class="advice-text">{{weather.summary}}</text>
+      </view>
+      <view class="advice-item">
+        <text class="advice-label">穿衣</text>
+        <text class="advice-text">{{weather.clothingAdvice}}</text>
+      </view>
+      <view class="advice-item">
+        <text class="advice-label">护肤</text>
+        <text class="advice-text">{{weather.skincareAdvice}}</text>
+      </view>
+      <view class="advice-grid">
+        <view>
+          <text class="metric-value">{{weather.uv}}</text>
+          <text class="metric-label">紫外线</text>
+        </view>
+        <view>
+          <text class="metric-value">{{weather.airQuality}}</text>
+          <text class="metric-label">空气质量</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>三日天气</text>
+      <text class="section-note">先做简版</text>
+    </view>
+    <view class="forecast-list">
+      <block wx:for="{{weather.forecast}}" wx:key="day">
+        <view class="card forecast-item">
+          <text class="forecast-day">{{item.day}}</text>
+          <text class="forecast-weather">{{item.weather}}</text>
+          <text class="forecast-temp">{{item.temp}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>OOTD 推荐</text>
+      <button class="text-btn" bindtap="goOotd">管理衣橱</button>
+    </view>
+    <view class="card ootd-card" bindtap="goOotd">
+      <text class="ootd-title">{{ootd.title}}</text>
+      <text class="ootd-desc">{{ootd.reason}}</text>
+      <view class="ootd-tags">
+        <block wx:for="{{ootd.tags}}" wx:key="*this">
+          <text class="pill">{{item}}</text>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

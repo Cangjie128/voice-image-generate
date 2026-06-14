@@ -1,0 +1,146 @@
+.wishes-hero {
+  padding: 34rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #fff3e7 0%, #fff0f3 48%, #f5fbf8 100%);
+}
+
+.hero-title,
+.hero-subtitle,
+.wish-title,
+.wish-desc-text {
+  display: block;
+}
+
+.hero-title {
+  color: #332a2a;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  margin-top: 12rpx;
+  color: #786966;
+  font-size: 26rpx;
+}
+
+.form-card {
+  padding: 24rpx;
+}
+
+.wish-desc {
+  margin-top: 16rpx;
+}
+
+.picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14rpx;
+  margin: 16rpx 0 20rpx;
+}
+
+.picker-cell {
+  min-height: 84rpx;
+  padding: 14rpx 18rpx;
+  border: 1rpx solid #f0d8d1;
+  border-radius: 14rpx;
+  background: #fffdfb;
+}
+
+.picker-cell text {
+  display: block;
+}
+
+.picker-cell text:first-child {
+  color: #8f7d7a;
+  font-size: 22rpx;
+}
+
+.picker-cell text:last-child {
+  margin-top: 4rpx;
+  color: #d7556d;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.wish-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.wish-card {
+  display: flex;
+  min-height: 230rpx;
+  overflow: hidden;
+}
+
+.wish-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 168rpx;
+  min-width: 168rpx;
+  background: #f5fbf8;
+  color: #527267;
+  font-size: 28rpx;
+  font-weight: 800;
+  text-align: center;
+}
+
+.wish-body {
+  flex: 1;
+  min-width: 0;
+  padding: 22rpx;
+}
+
+.wish-title {
+  max-width: 320rpx;
+  color: #332a2a;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.wish-desc-text {
+  margin-top: 10rpx;
+  color: #6d5f5b;
+  font-size: 25rpx;
+}
+
+.wish-meta {
+  display: flex;
+  gap: 18rpx;
+  margin-top: 12rpx;
+  color: #9a827c;
+  font-size: 22rpx;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 12rpx;
+  color: #d7556d;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.progress-slider {
+  flex: 1;
+  margin: 0;
+}
+
+.wish-actions {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.small-btn {
+  min-height: 56rpx;
+  padding: 0 22rpx;
+  font-size: 24rpx;
+}

@@ -1,0 +1,21 @@
+<view class="page role-page">
+  <view class="role-hero">
+    <text class="hero-kicker">歪宝小窝</text>
+    <text class="hero-title">先选择你的身份</text>
+    <text class="hero-subtitle">身份会决定进入哪一端。女朋友端和男朋友端彼此独立，不会互相跳转。</text>
+  </view>
+
+  <view class="section role-list">
+    <view class="card role-card waibao-card" bindtap="chooseWaibao">
+      <text class="role-title">我是歪宝</text>
+      <text class="role-desc">记录心情、天气、例假、心愿和 OOTD，接收 AI 安慰。</text>
+      <button class="primary-btn role-btn" bindtap="chooseWaibao">进入歪宝端</button>
+    </view>
+
+    <view class="card role-card boyfriend-card" bindtap="chooseBoyfriend">
+      <text class="role-title">我是男朋友</text>
+      <text class="role-desc">查看授权状态、重要日子和心愿，用更温柔的方式关心她。</text>
+      <button class="ghost-btn role-btn" bindtap="chooseBoyfriend">进入男朋友端</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,91 @@
+.period-hero {
+  padding: 34rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #fff0f3 0%, #f4faf6 100%);
+}
+
+.hero-title,
+.hero-subtitle,
+.record-date,
+.record-meta,
+.record-note {
+  display: block;
+}
+
+.hero-title {
+  color: #332a2a;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  margin-top: 12rpx;
+  color: #796967;
+  font-size: 26rpx;
+}
+
+.form-card {
+  padding: 10rpx 24rpx 24rpx;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 86rpx;
+  border-bottom: 1rpx solid #f3e4df;
+  color: #443b39;
+}
+
+.field-row text:last-child {
+  color: #d7556d;
+}
+
+.note-input {
+  margin: 22rpx 0;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.advice-card {
+  padding: 26rpx;
+  color: #5d504d;
+}
+
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.record-item {
+  padding: 24rpx;
+}
+
+.record-date {
+  color: #332a2a;
+  font-weight: 800;
+}
+
+.record-meta {
+  margin-top: 8rpx;
+  color: #8f7d7a;
+  font-size: 24rpx;
+}
+
+.record-note {
+  margin-top: 14rpx;
+  color: #655855;
+  font-size: 25rpx;
+}
+
+.disclaimer {
+  margin-top: 28rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  background: #fff3e7;
+  color: #8a6b54;
+  font-size: 24rpx;
+}

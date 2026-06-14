@@ -1,0 +1,17 @@
+node_modules/
+server/node_modules/
+dist/
+server/dist/
+web/dist/
+*.log
+.env
+.env*
+*.env
+!.env.example
+!server/.env.example
+server/.env
+project.private.config.json
+
+# 本会话生成的验证/调试图（不纳入仓库）
+_contactsheet_heads.png
+_verification_states.png

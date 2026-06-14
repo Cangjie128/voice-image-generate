@@ -1,0 +1,90 @@
+.boyfriend-hero {
+  padding: 34rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #f5fbf8 0%, #fff0f3 100%);
+}
+
+.hero-kicker,
+.hero-title,
+.hero-subtitle,
+.wish-title,
+.wish-desc {
+  display: block;
+}
+
+.hero-kicker {
+  color: #527267;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.hero-title {
+  margin-top: 12rpx;
+  color: #332a2a;
+  font-size: 46rpx;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  margin-top: 10rpx;
+  color: #786966;
+  font-size: 27rpx;
+}
+
+.phrase-card {
+  padding: 26rpx;
+  color: #4f4542;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.bind-card {
+  display: flex;
+  gap: 14rpx;
+  padding: 20rpx;
+}
+
+.bind-input {
+  flex: 1;
+}
+
+.bind-btn {
+  width: 132rpx;
+  min-width: 132rpx;
+}
+
+.full-btn {
+  width: 100%;
+  margin-top: 22rpx;
+}
+
+.date-item,
+.wish-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 96rpx;
+  margin-bottom: 14rpx;
+  padding: 24rpx;
+}
+
+.date-item text:first-child,
+.wish-title {
+  color: #332a2a;
+  font-weight: 800;
+}
+
+.date-item text:last-child {
+  color: #d7556d;
+  font-size: 24rpx;
+}
+
+.wish-item {
+  align-items: flex-start;
+}
+
+.wish-desc {
+  margin-top: 8rpx;
+  color: #8f7d7a;
+  font-size: 24rpx;
+}

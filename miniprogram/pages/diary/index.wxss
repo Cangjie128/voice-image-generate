@@ -1,0 +1,84 @@
+.diary-hero {
+  padding: 34rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #fff0f3 0%, #f5fbf8 100%);
+}
+
+.hero-title,
+.hero-subtitle,
+.result-title,
+.result-text,
+.notify-title,
+.notify-text {
+  display: block;
+}
+
+.hero-title {
+  color: #332a2a;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  margin-top: 12rpx;
+  color: #786966;
+  font-size: 26rpx;
+}
+
+.diary-card,
+.result-card {
+  padding: 24rpx;
+}
+
+.mood-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 78rpx;
+  margin-bottom: 18rpx;
+  padding: 0 22rpx;
+  border-radius: 14rpx;
+  background: #fff3e7;
+  color: #8a6b54;
+  font-weight: 700;
+}
+
+.diary-input {
+  min-height: 360rpx;
+  margin-bottom: 20rpx;
+}
+
+.full-btn {
+  width: 100%;
+}
+
+.result-title {
+  color: #332a2a;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.result-text {
+  margin-top: 20rpx;
+  color: #5d504d;
+  font-size: 28rpx;
+}
+
+.notify-box {
+  margin-top: 22rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: #f4faf6;
+}
+
+.notify-title {
+  color: #55766b;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.notify-text {
+  margin-top: 8rpx;
+  color: #55766b;
+  font-size: 25rpx;
+}

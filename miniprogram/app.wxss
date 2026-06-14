@@ -1,0 +1,148 @@
+page {
+  min-height: 100vh;
+  background: #fff8f6;
+  color: #332a2a;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.55;
+}
+
+view,
+text,
+button,
+input,
+textarea {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+  border-radius: 999rpx;
+  line-height: 1;
+}
+
+button::after {
+  border: none;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 48rpx;
+}
+
+.section {
+  margin-top: 24rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14rpx;
+  color: #332a2a;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.section-note {
+  color: #8f7d7a;
+  font-size: 24rpx;
+}
+
+.card {
+  width: 100%;
+  border: 1rpx solid #f4dfda;
+  border-radius: 18rpx;
+  background: #fffdfb;
+  box-shadow: 0 12rpx 36rpx rgba(117, 72, 65, 0.07);
+}
+
+.soft-card {
+  border-color: #f6e5de;
+  background: #fff4ef;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  background: #fff0f3;
+  color: #c64f66;
+  font-size: 22rpx;
+}
+
+.primary-btn,
+.ghost-btn,
+.text-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72rpx;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.primary-btn {
+  background: #e85d75;
+  color: #ffffff;
+}
+
+.ghost-btn {
+  border: 1rpx solid #efd2cb;
+  background: #fffaf8;
+  color: #8a5c55;
+}
+
+.text-btn {
+  min-height: 56rpx;
+  padding: 0 12rpx;
+  background: transparent;
+  color: #d7556d;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1rpx solid #f0d8d1;
+  border-radius: 14rpx;
+  background: #fffdfb;
+  color: #332a2a;
+  font-size: 28rpx;
+}
+
+.input {
+  height: 78rpx;
+  padding: 0 24rpx;
+}
+
+.textarea {
+  min-height: 180rpx;
+  padding: 22rpx 24rpx;
+}
+
+.empty {
+  padding: 34rpx 28rpx;
+  color: #8f7d7a;
+  text-align: center;
+}
+
+.divider {
+  width: 100%;
+  height: 1rpx;
+  margin: 22rpx 0;
+  background: #f3e1dc;
+}

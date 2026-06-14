@@ -1,0 +1,108 @@
+<view class="page today-page">
+  <view class="today-hero">
+    <view>
+      <text class="hero-kicker">{{greeting}}</text>
+      <text class="hero-title">{{encouragement}}</text>
+    </view>
+    <view class="hero-badge">
+      <text>{{loveDays}}</text>
+      <text>天</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="card love-card">
+      <view>
+        <text class="card-label">恋爱天数</text>
+        <text class="love-text">我们已经恋爱 {{loveDays}} 天啦</text>
+      </view>
+      <button class="ghost-btn compact-btn" bindtap="goProfile">资料</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>重要日子</text>
+      <text class="section-note">被记得的小事</text>
+    </view>
+    <view class="date-list">
+      <block wx:for="{{importantDates}}" wx:key="id">
+        <view class="card date-item">
+          <view>
+            <text class="date-title">{{item.title}}</text>
+            <text class="date-subtitle" wx:if="{{item.isToday}}">今天就是这个重要日子</text>
+            <text class="date-subtitle" wx:else>还有 {{item.daysLeft}} 天</text>
+          </view>
+          <text class="pill">{{item.repeatType === 'yearly' ? '每年' : '一次'}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>今日天气</text>
+      <button class="text-btn" bindtap="goWeather">详情</button>
+    </view>
+    <view class="card weather-card">
+      <view>
+        <text class="weather-city">{{weather.city}} {{weather.weather}}</text>
+        <text class="weather-temp">{{weather.temperatureMin}}° - {{weather.temperatureMax}}°</text>
+      </view>
+      <view class="weather-advice">
+        <text>{{weather.summary}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>今日待办</text>
+      <text class="section-note">一点点完成</text>
+    </view>
+    <view class="todo-input-row">
+      <input class="input todo-input" value="{{newTodoTitle}}" placeholder="新增今天的小任务" bindinput="onTodoInput" />
+      <button class="primary-btn add-btn" bindtap="addTodo">添加</button>
+    </view>
+    <view class="card todo-card">
+      <block wx:if="{{todos.length}}">
+        <block wx:for="{{todos}}" wx:key="id">
+          <view class="todo-item" data-id="{{item.id}}" bindtap="toggleTodo">
+            <text class="todo-check {{item.status === 'done' ? 'done' : ''}}">{{item.status === 'done' ? '✓' : ''}}</text>
+            <text class="todo-title {{item.status === 'done' ? 'todo-done' : ''}}">{{item.title}}</text>
+            <text class="todo-priority">{{item.priority === 'high' ? '重要' : '日常'}}</text>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty">今天还没有待办，留一点空白也很好。</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>今日心情</text>
+      <button class="text-btn" bindtap="goDiary">写详细一点</button>
+    </view>
+    <view class="card diary-card">
+      <picker mode="selector" range="{{moods}}" value="{{moodIndex}}" bindchange="onMoodChange">
+        <view class="mood-picker">
+          <text>今天心情：{{moods[moodIndex]}}</text>
+          <text class="picker-arrow">切换</text>
+        </view>
+      </picker>
+      <textarea class="textarea diary-input" value="{{diaryDraft}}" maxlength="300" placeholder="写写今天发生了什么，开心、不开心、想吐槽都可以。" bindinput="onDiaryInput" />
+      <button class="primary-btn full-btn" loading="{{aiAnalyzing}}" bindtap="submitDiary">让小窝抱抱我</button>
+    </view>
+
+    <view wx:if="{{aiResult}}" class="card comfort-card">
+      <view class="row-between">
+        <text class="comfort-title">AI 安慰</text>
+        <text class="pill">等级 {{aiResult.emotionLevel}}</text>
+      </view>
+      <text class="comfort-text">{{aiResult.comfortText}}</text>
+      <view wx:if="{{aiResult.notifyPartner}}" class="partner-alert">
+        <text>已根据隐私设置生成温柔提醒，不会透露日记原文。</text>
+      </view>
+    </view>
+  </view>
+</view>

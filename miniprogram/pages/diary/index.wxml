@@ -1,0 +1,33 @@
+<view class="page diary-page">
+  <view class="diary-hero">
+    <text class="hero-title">今天发生了什么</text>
+    <text class="hero-subtitle">这里默认只属于你。提醒男朋友时，也不会透露原文。</text>
+  </view>
+
+  <view class="section">
+    <view class="card diary-card">
+      <picker mode="selector" range="{{moods}}" value="{{moodIndex}}" bindchange="onMoodChange">
+        <view class="mood-picker">
+          <text>心情：{{moods[moodIndex]}}</text>
+          <text>切换</text>
+        </view>
+      </picker>
+      <textarea class="textarea diary-input" maxlength="1000" value="{{content}}" placeholder="开心的、不开心的、想吐槽的、想对他说的话，都可以写在这里。" bindinput="onInput" />
+      <button class="primary-btn full-btn" loading="{{loading}}" bindtap="submit">生成 AI 安慰</button>
+    </view>
+  </view>
+
+  <view wx:if="{{result}}" class="section">
+    <view class="card result-card">
+      <view class="row-between">
+        <text class="result-title">小窝回复</text>
+        <text class="pill">{{result.emotionType}}</text>
+      </view>
+      <text class="result-text">{{result.comfortText}}</text>
+      <view wx:if="{{result.notifyPartner}}" class="notify-box">
+        <text class="notify-title">给男朋友的提醒</text>
+        <text class="notify-text">{{result.boyfriendMessage}}</text>
+      </view>
+    </view>
+  </view>
+</view>

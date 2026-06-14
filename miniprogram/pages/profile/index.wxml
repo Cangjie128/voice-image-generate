@@ -1,0 +1,106 @@
+<view class="page profile-page">
+  <view class="profile-hero">
+    <view class="avatar">{{avatarText}}</view>
+    <view class="profile-main">
+      <text class="nickname">{{user.nickname}}</text>
+      <text class="profile-note">喜欢被叫：{{user.preferredName}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>情侣绑定</text>
+      <text class="section-note">{{couple.status === 'active' ? '已绑定' : '未绑定'}}</text>
+    </view>
+    <view class="card bind-card">
+      <view>
+        <text class="bind-label">邀请码</text>
+        <text class="bind-code">{{couple.bindCode}}</text>
+      </view>
+      <button class="ghost-btn" bindtap="generateCode">换一个</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>个人资料</text>
+    </view>
+    <view class="card info-card">
+      <view class="info-row">
+        <text>生日</text>
+        <text>{{user.birthday}}</text>
+      </view>
+      <view class="info-row">
+        <text>恋爱开始</text>
+        <text>{{couple.loveStartDate}}</text>
+      </view>
+      <view class="info-row">
+        <text>喜欢的安慰</text>
+        <text>{{user.comfortPreference}}</text>
+      </view>
+      <view class="info-row">
+        <text>不喜欢的表达</text>
+        <text>{{user.dislikeExpression}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>重要日子</text>
+      <text class="section-note">首页会提醒</text>
+    </view>
+    <view class="date-list">
+      <block wx:for="{{importantDates}}" wx:key="id">
+        <view class="card date-item">
+          <view>
+            <text class="date-title">{{item.title}}</text>
+            <text class="date-subtitle">{{item.date}}</text>
+          </view>
+          <text class="pill">{{item.repeatType === 'yearly' ? '每年' : '一次'}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>隐私设置</text>
+      <text class="section-note">克制共享</text>
+    </view>
+    <view class="card switch-card">
+      <view class="switch-row">
+        <view>
+          <text class="switch-title">允许查看心愿</text>
+          <text class="switch-desc">男朋友端可看到心愿墙</text>
+        </view>
+        <switch checked="{{privacy.allowWishView}}" data-key="allowWishView" bindchange="onPrivacyChange" color="#e85d75" />
+      </view>
+      <view class="switch-row">
+        <view>
+          <text class="switch-title">接收情绪提醒</text>
+          <text class="switch-desc">只发送概括建议，不发日记全文</text>
+        </view>
+        <switch checked="{{privacy.allowEmotionNotify}}" data-key="allowEmotionNotify" bindchange="onPrivacyChange" color="#e85d75" />
+      </view>
+      <view class="switch-row">
+        <view>
+          <text class="switch-title">经期提醒</text>
+          <text class="switch-desc">需单独授权给男朋友</text>
+        </view>
+        <switch checked="{{privacy.allowPeriodNotify}}" data-key="allowPeriodNotify" bindchange="onPrivacyChange" color="#e85d75" />
+      </view>
+      <view class="switch-row">
+        <view>
+          <text class="switch-title">今日心情可见</text>
+          <text class="switch-desc">默认关闭，保护私人表达</text>
+        </view>
+        <switch checked="{{privacy.allowMoodView}}" data-key="allowMoodView" bindchange="onPrivacyChange" color="#e85d75" />
+      </view>
+    </view>
+  </view>
+
+  <view class="about-card">歪宝小窝会认真照顾记录和提醒的边界。情绪、日记、经期都默认属于你自己。</view>
+
+  <button class="ghost-btn role-reset-btn" bindtap="chooseRoleAgain">重新选择身份</button>
+</view>

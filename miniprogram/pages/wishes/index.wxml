@@ -1,0 +1,69 @@
+<view class="page wishes-page">
+  <view class="wishes-hero">
+    <view>
+      <text class="hero-title">把想要的小事放在这里</text>
+      <text class="hero-subtitle">心愿不是清单，是一起靠近生活的小暗号。</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>新增心愿</text>
+      <text class="section-note">男朋友可认领</text>
+    </view>
+    <view class="card form-card">
+      <input class="input" value="{{form.title}}" placeholder="比如：想去海边" bindinput="onTitleInput" />
+      <textarea class="textarea wish-desc" value="{{form.description}}" placeholder="补充一点点描述" bindinput="onDescInput" />
+      <view class="picker-grid">
+        <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+          <view class="picker-cell">
+            <text>分类</text>
+            <text>{{categories[categoryIndex]}}</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{priorities}}" value="{{priorityIndex}}" bindchange="onPriorityChange">
+          <view class="picker-cell">
+            <text>优先级</text>
+            <text>{{priorities[priorityIndex]}}</text>
+          </view>
+        </picker>
+      </view>
+      <button class="primary-btn full-btn" bindtap="addWish">放进心愿墙</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>心愿墙</text>
+      <text class="section-note">{{wishes.length}} 个心愿</text>
+    </view>
+    <view class="wish-list">
+      <block wx:for="{{wishes}}" wx:key="id">
+        <view class="card wish-card">
+          <view class="wish-image">
+            <text>{{item.categoryShort}}</text>
+          </view>
+          <view class="wish-body">
+            <view class="row-between">
+              <text class="wish-title">{{item.title}}</text>
+              <text class="pill">{{item.statusLabel}}</text>
+            </view>
+            <text class="wish-desc-text">{{item.description}}</text>
+            <view class="wish-meta">
+              <text>{{item.category}}</text>
+              <text>{{item.priorityLabel}}</text>
+            </view>
+            <view class="progress-row">
+              <slider class="progress-slider" min="0" max="100" step="10" value="{{item.progress}}" data-id="{{item.id}}" bindchange="onProgressChange" activeColor="#e85d75" backgroundColor="#f2dfd8" block-size="18" />
+              <text>{{item.progress}}%</text>
+            </view>
+            <view class="wish-actions">
+              <button class="ghost-btn small-btn" data-id="{{item.id}}" bindtap="claimWish">认领</button>
+              <button class="ghost-btn small-btn" data-id="{{item.id}}" data-progress="100" bindtap="finishWish">完成</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

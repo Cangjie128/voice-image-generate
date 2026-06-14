@@ -1,0 +1,105 @@
+<view class="page ootd-page">
+  <view class="ootd-hero">
+    <view>
+      <text class="hero-kicker">今日 OOTD</text>
+      <text class="hero-title">{{recommendation.title}}</text>
+      <text class="hero-subtitle">{{recommendation.weatherSummary}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="card recommend-card">
+      <view class="tag-row">
+        <block wx:for="{{recommendation.tags}}" wx:key="*this">
+          <text class="pill">{{item}}</text>
+        </block>
+      </view>
+      <text class="recommend-reason">{{recommendation.reason}}</text>
+      <view wx:if="{{recommendation.items.length}}" class="picked-list">
+        <block wx:for="{{recommendation.items}}" wx:key="id">
+          <view class="picked-item">
+            <view class="picked-thumb">
+              <image wx:if="{{item.imageUrl}}" src="{{item.imageUrl}}" mode="aspectFill" />
+              <text wx:else>{{item.type}}</text>
+            </view>
+            <view>
+              <text class="picked-title">{{item.color}}{{item.type}}</text>
+              <text class="picked-meta">{{item.style}} · {{item.season}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>添加衣服</text>
+      <text class="section-note">手动标签版</text>
+    </view>
+    <view class="card form-card">
+      <view class="upload-row">
+        <view class="upload-preview" bindtap="chooseImage">
+          <image wx:if="{{form.imageUrl}}" src="{{form.imageUrl}}" mode="aspectFill" />
+          <text wx:else>上传图片</text>
+        </view>
+        <view class="upload-copy">
+          <text class="upload-title">先上传一张衣服照片</text>
+          <text class="upload-note">第一版手动选择标签，后面再接 AI 自动识别。</text>
+          <button class="ghost-btn upload-btn" bindtap="chooseImage">选择图片</button>
+        </view>
+      </view>
+
+      <view class="picker-grid">
+        <picker mode="selector" range="{{typeOptions}}" value="{{typeIndex}}" bindchange="onTypeChange">
+          <view class="picker-cell">
+            <text>类型</text>
+            <text>{{typeOptions[typeIndex]}}</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{colorOptions}}" value="{{colorIndex}}" bindchange="onColorChange">
+          <view class="picker-cell">
+            <text>颜色</text>
+            <text>{{colorOptions[colorIndex]}}</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{styleOptions}}" value="{{styleIndex}}" bindchange="onStyleChange">
+          <view class="picker-cell">
+            <text>风格</text>
+            <text>{{styleOptions[styleIndex]}}</text>
+          </view>
+        </picker>
+        <picker mode="selector" range="{{seasonOptions}}" value="{{seasonIndex}}" bindchange="onSeasonChange">
+          <view class="picker-cell">
+            <text>季节</text>
+            <text>{{seasonOptions[seasonIndex]}}</text>
+          </view>
+        </picker>
+      </view>
+
+      <button class="primary-btn full-btn" bindtap="addItem">加入衣橱</button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text>我的衣橱</text>
+      <text class="section-note">{{wardrobeItems.length}} 件</text>
+    </view>
+    <view class="wardrobe-grid">
+      <block wx:for="{{wardrobeItems}}" wx:key="id">
+        <view class="card wardrobe-card">
+          <view class="wardrobe-thumb">
+            <image wx:if="{{item.imageUrl}}" src="{{item.imageUrl}}" mode="aspectFill" />
+            <text wx:else>{{item.type}}</text>
+          </view>
+          <view class="wardrobe-body">
+            <text class="wardrobe-title">{{item.color}}{{item.type}}</text>
+            <text class="wardrobe-meta">{{item.style}} · {{item.season}}</text>
+            <button class="text-btn delete-btn" data-id="{{item.id}}" bindtap="deleteItem">删除</button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
