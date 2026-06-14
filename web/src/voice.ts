@@ -46,7 +46,7 @@ function browserRecognitionAvailable() {
 
 function getUserMediaAvailable() {
   const AC = window.AudioContext || (window as any).webkitAudioContext
-  return Boolean(navigator.mediaDevices?.getUserMedia && AC)
+  return typeof navigator.mediaDevices?.getUserMedia === 'function' && Boolean(AC)
 }
 
 function asrSocketUrl() {

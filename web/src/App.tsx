@@ -95,6 +95,9 @@ function App() {
   const [generatedImage, setGeneratedImage] = useState<GeneratedImage | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [lastPrompt, setLastPrompt] = useState('')
+  const [progress, setProgress] = useState(0)
+  const [showProgress, setShowProgress] = useState(false)
+  const finishTimerRef = useRef<number | null>(null)
 
   const isAwakeRef = useRef(isAwake)
   const lastPromptRef = useRef(lastPrompt)
@@ -106,6 +109,33 @@ function App() {
   useEffect(() => {
     lastPromptRef.current = lastPrompt
   }, [lastPrompt])
+
+  // 生图进度条（模拟进度：OpenAI 一次性返回，无真实百分比）
+  useEffect(() => {
+    if (isGenerating) {
+      if (finishTimerRef.current) {
+        window.clearTimeout(finishTimerRef.current)
+        finishTimerRef.current = null
+      }
+      setShowProgress(true)
+      setProgress((p) => (p < 8 ? 8 : p))
+      const id = window.setInterval(() => {
+        setProgress((p) => (p >= 90 ? 90 : p + (p < 55 ? 7 : p < 80 ? 2.5 : 1)))
+      }, 320)
+      return () => window.clearInterval(id)
+    }
+    setProgress((p) => (p > 0 ? 100 : 0))
+    finishTimerRef.current = window.setTimeout(() => {
+      setShowProgress(false)
+      setProgress(0)
+    }, 650)
+    return () => {
+      if (finishTimerRef.current) {
+        window.clearTimeout(finishTimerRef.current)
+        finishTimerRef.current = null
+      }
+    }
+  }, [isGenerating])
 
   const pushMessage = useCallback((role: ChatMessage['role'], text: string) => {
     setMessages((current) => [
@@ -156,6 +186,10 @@ function App() {
           ? '我先给你生成了预览图。'
           : '画好了，已经放到右侧画框。'
         pushMessage('robot', reply)
+        if (data.warning) {
+          pushMessage('system', `生图未走真实模型：${data.warning}`)
+          console.warn('[生图] warning:', data.warning)
+        }
         speak(reply)
       } catch {
         const reply = '这次生成没有成功，你可以再说一遍画面。'
@@ -330,7 +364,7 @@ function App() {
                   <ImageIcon size={18} />
                   <span>画框</span>
                 </div>
-                <div className={`image-frame ${isGenerating ? 'is-generating' : ''}`}>
+                <div className={`image-frame ${showProgress ? 'is-generating' : ''}`}>
                   {generatedImage ? (
                     <img
                       src={generatedImage.url}
@@ -341,9 +375,18 @@ function App() {
                       <WandSparkles size={42} />
                     </div>
                   )}
-                  {isGenerating && (
+                  {showProgress && (
                     <div className="generating-layer">
-                      <div className="loader" />
+                      <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)}>
+                        <div className="progress-label">
+                          <WandSparkles size={16} />
+                          <span>{progress >= 100 ? '完成' : '正在生成画面'}</span>
+                          <span className="progress-pct">{Math.round(progress)}%</span>
+                        </div>
+                        <div className="progress-track">
+                          <div className="progress-fill" style={{ width: `${progress}%` }} />
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>

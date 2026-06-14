@@ -37,10 +37,12 @@ export class ImagesController {
     const apiKey = getOpenAIKey()
 
     if (!apiKey) {
+      console.warn('[images] 未读取到 OPENAI_API_KEY（检查 server/.env 是否填写并重启后端）')
       return createPreviewResponse(prompt, model, '未配置 OPENAI_API_KEY，已返回本地预览图。')
     }
 
     try {
+      console.info(`[images] 调用 OpenAI 生图: model=${model} size=${size} quality=${quality}`)
       const image = await generateWithOpenAI({
         apiKey,
         model,
@@ -49,6 +51,7 @@ export class ImagesController {
         size
       })
 
+      console.info('[images] OpenAI 生图成功')
       return {
         imageUrl: image.imageUrl,
         model,
@@ -58,6 +61,7 @@ export class ImagesController {
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'OpenAI image generation failed'
+      console.error('[images] OpenAI 生图失败:', message)
       return createPreviewResponse(prompt, model, `真实生图暂不可用：${message}`)
     }
   }
